@@ -3,14 +3,22 @@ from datetime import date
 import pytz
 from canvasapi import Canvas
 
-def readcourse(course,datetoday,timenow):   
+def readcourse(course,datetoday,timenow):   #object,str,str
     for assignment in course.get_assignments():
         duedate = assignment.due_at
         if duedate is not None:
-            duedate = convertime(duedate)
+            due = convertime(duedate)
+            duedate,duetime = due.split()
             print("Date: ",assignment.due_at)
-            print("PST Date: ",duedate)
+            print("PST Date: ",duedate," and time: ",duetime)
             print(course.name," : ",assignment," ",duedate)
+            if(duedate < datetoday):
+                print("Passed deadline by ")
+            else:
+                duesoon(duedate,duetime)
+           
+def duesoon():
+    pass
 
 def convertime(duedate):    
     #Convert ISO 8601 to PST Credit: https://remembertheview.com/2020/01/07/date-time-conversion-in-python-iso-8601-utc-to-pacific-standard-time/
@@ -26,6 +34,10 @@ def convertime(duedate):
     date_time = date_time.astimezone(pst)
     #update the variable with the new time and date in the new format
     date_time = date_time.strftime('%m-%d-%y %H:%M:%S')
+    date_time = fixdate(date_time)  #Remove the first two digits of the year
+    return date_time
+
+def fixdate(date_time):  #Remove the first two digits of the year
     return date_time
 
 
