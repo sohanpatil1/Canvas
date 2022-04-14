@@ -97,8 +97,7 @@ ECS152 = 682756
 ECS162A = 678782
 SAS25V = 663974
 STA106 = 678534
-# courselist = [ECS152,ECS162A,SAS25V,STA106]
-courselist = [ECS152,ECS162A,STA106]
+courselist = [ECS152,ECS162A,SAS25V,STA106]
 sendmessage=[]
 for i in courselist:
     course = canvas.get_course(i)
